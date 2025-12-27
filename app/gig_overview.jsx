@@ -1,0 +1,261 @@
+import { Ionicons } from "@expo/vector-icons";
+import { Stack, useRouter } from "expo-router";
+import { useState } from "react";
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+export default function AddGigScreen() {
+  const router = useRouter();
+
+  const steps = [
+    { label: "Overview", screen: "/gig_overview" },
+    { label: "Pricing", screen: "/gig_price" },
+    { label: "Description", screen: "/gig_decs" },
+    { label: "Gallery", screen: "/gig_gallery" },
+  ];
+
+  const [gigTitle, setGigTitle] = useState("");
+  const [category, setCategory] = useState("");
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <StatusBar style="dark" backgroundColor="#ffffff" />
+      <Stack.Screen options={{ headerShown: false }} />
+
+      <View style={styles.container}>
+        {/* Back Button */}
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => router.back()}
+        >
+          <Ionicons name="chevron-back" size={24} color="#fff" />
+        </TouchableOpacity>
+
+        {/* Step Circles */}
+        <View style={styles.stepsRow}>
+          {steps.map((step, index) => {
+            const isActive = index === 0; // Overview active
+            return (
+              <TouchableOpacity
+                key={index}
+                style={styles.stepItem}
+                onPress={() => router.push(step.screen)}
+              >
+                <View
+                  style={[styles.stepCircle, isActive && styles.activeCircle]}
+                >
+                  <Text
+                    style={[styles.stepText, isActive && styles.activeText]}
+                  >
+                    {index + 1}
+                  </Text>
+                </View>
+                <Text
+                  style={[styles.stepLabel, isActive && styles.activeLabel]}
+                >
+                  {step.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+
+        {/* Card */}
+        <ScrollView>
+          <View style={styles.card}>
+            {/* Card Header */}
+            <View style={styles.cardHeader}>
+              <Text style={styles.cardHeaderText}>① Overview</Text>
+            </View>
+
+            {/* Card Body */}
+            <View style={styles.inputContainer}>
+              {/* Gig Title */}
+              <Text style={styles.inputLabel}>Gig Title</Text>
+              <TextInput
+                placeholder="I will do something I'm really good at"
+                style={styles.input}
+                placeholderTextColor="#9F9F9F"
+                value={gigTitle}
+                onChangeText={setGigTitle}
+                multiline
+              />
+
+              {/* Category Section */}
+              <Text style={[styles.inputLabel, { marginTop: 20 }]}>
+                Category
+              </Text>
+              <View style={styles.rowInputs}>
+                <TextInput
+                  placeholder="Category Name"
+                  style={[styles.input, styles.halfInput]}
+                  placeholderTextColor="#9F9F9F"
+                  value={category}
+                  onChangeText={setCategory}
+                />
+                <TextInput
+                  placeholder="Category Name"
+                  style={[styles.input, styles.halfInput]}
+                  placeholderTextColor="#9F9F9F"
+                  value={category}
+                  onChangeText={setCategory}
+                />
+              </View>
+            </View>
+
+            {/* Submit Button */}
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                if (!gigTitle || !category) {
+                  alert("Please fill all fields before proceeding.");
+                  return;
+                }
+                router.push("/gig_price"); // Navigate to Pricing screen
+              }}
+            >
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F8F9FB",
+    padding: 16,
+  },
+
+  backBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    margin: 10,
+    backgroundColor: "#17747A",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 12,
+    elevation: 2,
+  },
+
+  /* Steps */
+  stepsRow: {
+    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 16,
+  },
+  stepItem: {
+    alignItems: "center",
+  },
+  stepCircle: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: "#9AA0A6",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  activeCircle: {
+    backgroundColor: "#688998",
+  },
+  stepText: {
+    fontSize: 12,
+    color: "#9AA0A6",
+  },
+  activeText: {
+    color: "#fff",
+    fontWeight: "700",
+  },
+  stepLabel: {
+    fontSize: 12,
+    color: "#9AA0A6",
+    marginTop: 4,
+  },
+  activeLabel: {
+    color: "#043A53",
+    fontWeight: "700",
+  },
+
+  /* Card */
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    overflow: "hidden",
+    elevation: 3,
+    paddingBottom: 20,
+    marginTop: 20,
+  },
+  cardHeader: {
+    backgroundColor: "#043A53",
+    padding: 14,
+  },
+  cardHeaderText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
+  inputContainer: {
+    marginHorizontal: 16,
+    marginTop: 16,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#043A53",
+    marginBottom: 6,
+  },
+  input: {
+    backgroundColor: "#F8F9FB",
+    borderRadius: 8,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    height: 150,
+    textAlignVertical: "top",
+  },
+  rowInputs: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  halfInput: {
+    width: "48%",
+    height: 50,
+    paddingHorizontal: 12,
+    textAlignVertical: "center",
+  },
+
+  button: {
+    backgroundColor: "#043A53",
+    padding: 14,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 16,
+    alignSelf: "flex-end",
+    width: 120,
+    marginHorizontal: 16,
+    opacity:0.6,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+});
+
+
+
