@@ -2,7 +2,7 @@
 import { Feather, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function CustomDrawer({ navigation }) {
+export default function CustomDrawer({ navigate, closeDrawer }) {
   return (
     <View style={styles.container}>
 
@@ -21,26 +21,47 @@ export default function CustomDrawer({ navigation }) {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => {
+            navigate("/home");
+            closeDrawer();
+          }}
         >
           <Feather name="user" size={20} color="#444" />
-          <Text style={styles.menuText}>Switch to Freelancer</Text>
+          <Text style={styles.menuText}>Switch to Client</Text>
           <MaterialIcons name="keyboard-arrow-right" size={22} color="#444" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => {
+            navigate("/postedprojects");
+            closeDrawer();
+          }}
+        >
           <FontAwesome5 name="folder-open" size={18} color="#444" />
           <Text style={styles.menuText}>Posted Projects</Text>
           <MaterialIcons name="keyboard-arrow-right" size={22} color="#444" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => {
+            navigate("/postedjobs");
+            closeDrawer();
+          }}
+        >
           <FontAwesome5 name="clipboard-list" size={18} color="#444" />
           <Text style={styles.menuText}>Posted Jobs</Text>
           <MaterialIcons name="keyboard-arrow-right" size={22} color="#444" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity
+          style={styles.menuItem}
+          onPress={() => {
+            navigate("/FreelanceerDisputedlist");
+            closeDrawer();
+          }}
+        >
           <Feather name="alert-triangle" size={20} color="#444" />
           <Text style={styles.menuText}>Disputes Lists</Text>
           <MaterialIcons name="keyboard-arrow-right" size={22} color="#444" />
@@ -53,7 +74,7 @@ export default function CustomDrawer({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff"},
-  header: { backgroundColor: "#003B5C", paddingTop: 50, padding: 20, paddingBottom: 40 },
+  header: { backgroundColor: "#043A53", paddingTop: 50, padding: 20, paddingBottom: 40 },
   profileImage: { width: 55, height: 55, borderRadius: 30, marginBottom: 10 },
   welcome: { color: "#ddd", fontSize: 14 },
   name: { color: "#fff", fontSize: 18, fontWeight: "600" },

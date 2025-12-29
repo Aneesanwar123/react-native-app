@@ -1,16 +1,10 @@
-// app/_layout.js (or wherever your TabLayout is)
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
-import { Colors } from "@/constants/theme";
-import { useColorScheme } from "@/hooks/use-color-scheme";
 import { Tabs } from "expo-router";
 import React from "react";
 import { Animated } from "react-native";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const activeColor = Colors[colorScheme ?? "light"].tint;
-  const inactiveColor = "#777";
   const iconColor = "#292929ff";
 
   return (
@@ -21,7 +15,6 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarStyle: {
           backgroundColor: "white",
-          color:"white",          
           borderTopWidth: 0,
           elevation: 50,
           height: 70,
@@ -74,6 +67,8 @@ export default function TabLayout() {
           ),
         }}
       />
+  
+
     </Tabs>
   );
 }
