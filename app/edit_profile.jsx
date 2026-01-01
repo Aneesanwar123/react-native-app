@@ -40,7 +40,7 @@ export default function EditProfileScreen() {
         <Text style={styles.headerTitle}>EDIT PROFILE</Text>
       </View>
 
-      <Image source={require("../assets/girl.jpg")} style={styles.avatarFixed} />
+      <Image source={require("@/assets/girl.jpg")} style={styles.avatarFixed} />
 
       <KeyboardAvoidingView
        style={{ flex: 1 }}

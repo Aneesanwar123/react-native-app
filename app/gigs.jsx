@@ -25,28 +25,28 @@ const gigs = () => {
       desc: "I will create professional 2D and 3D animated videos...", 
       category: "Video & Animation",
       type: "Animation",
-      image: require("../assets/img_1.png")
+      image: require("@/assets/img_1.png")
     },
     { 
       id: "2", 
       desc: "I will design a modern logo for your business...", 
       category: "Graphic Design",
       type: "Logo Design",
-      image: require("../assets/img_2.png")
+      image: require("@/assets/img_2.png")
     },
     { 
       id: "3", 
       desc: "I will develop a fully functional e-commerce website...", 
       category: "Web Development",
       type: "E-commerce",
-      image: require("../assets/img_3.png")
+      image: require("@/assets/img_3.png")
     },
     { 
       id: "4", 
       desc: "I will create a realistic 3D model for your project...", 
       category: "3D Modeling",
       type: "3D Design",
-      image: require("../assets/img_4.png")
+      image: require("@/assets/img_4.png")
     },
   ];
 

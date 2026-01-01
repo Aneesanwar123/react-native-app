@@ -32,7 +32,7 @@ export default function OrderDetails() {
             onPress={() => router.push("/gigs")} // navigate to Gigs screen
           >
             <Image
-              source={require("../assets/page.png")}
+              source={require("@/assets/page.png")}
               style={styles.bannerImage}
             />
           </TouchableOpacity>

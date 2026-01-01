@@ -3,14 +3,14 @@ import Constants from "expo-constants"; // Need this for status bar height
 import { Stack, useRouter } from "expo-router"; // Added useRouter
 import { StatusBar } from "expo-status-bar";
 import {
-    FlatList,
-    KeyboardAvoidingView, // Recommended for Chat
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  FlatList,
+  KeyboardAvoidingView, // Recommended for Chat
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from "react-native";
 
 const messages = [
@@ -27,7 +27,6 @@ export default function Chatting() {
     const isMe = item.sender === "me";
     return (
       <View style={[styles.messageContainer, isMe ? styles.myMessage : styles.otherMessage]}>
-        {/* Changed text color for 'me' messages to be readable on teal */}
         <Text style={[styles.messageText, { color: isMe ? "#fff" : "#000" }]}>{item.text}</Text>
         <Text style={[styles.timeText, { color: isMe ? "#eee" : "#555" }]}>{item.time}</Text>
       </View>

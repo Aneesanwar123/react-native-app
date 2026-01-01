@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const image = require("../assets/girl.jpg");
+const image = require("@/assets/girl.jpg");
 
 const list = () => { 
   const router = useRouter();
