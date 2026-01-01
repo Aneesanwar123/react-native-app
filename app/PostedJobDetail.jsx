@@ -1,6 +1,5 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack, useRouter } from 'expo-router'; // 1. Added useRouter
-import { useState } from 'react';
 import {
   ScrollView,
   StatusBar,
@@ -10,30 +9,27 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ApplyJobModal from '../components/Models/ApplyJobModal';
 
 const PostedJobDetail = () => {
   const router = useRouter(); // Initialize router
-
-  const [model ,SetModal] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <Stack.Screen options={{ headerShown: false }} />
-      
-      {/* 3. Added Back Button Header */}
+
+      {/* Back Button Header */}
       <View style={styles.headerNav}>
-        <TouchableOpacity 
-          style={styles.backButton} 
-          onPress={() => router.back()} 
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
         >
           <Ionicons name="chevron-back" size={24} color="white" />
         </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        
+
         {/* Section 1: Main Header Card */}
         <View style={[styles.card]}>
           <View style={styles.headerRow}>
@@ -64,8 +60,10 @@ const PostedJobDetail = () => {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.applyButton}
-          onPress ={() => SetModal(true)}
+          {/* Navigation to ApplyPosition Screen */}
+          <TouchableOpacity
+            style={styles.applyButton}
+            onPress={() => router.push("/ApplyPosition")}  // Navigate to ApplyPosition screen
           >
             <Text style={styles.applyButtonText}>Apply for this position</Text>
           </TouchableOpacity>
@@ -100,17 +98,13 @@ const PostedJobDetail = () => {
         <View style={styles.card}>
           <Text style={styles.sectionTitleLarge}>About this role</Text>
           <View style={[styles.divider, { marginVertical: 15 }]} />
-          
+
           <Text style={styles.subHeading}>Key Responsibilities</Text>
           <View style={styles.bulletItem}>
             <Text style={styles.bullet}>•</Text>
             <Text style={styles.bulletText}>Develop and maintain mobile applications using mobile applications</Text>
           </View>
         </View>
-        <ApplyJobModal
-        visible = {model}
-        onClose ={() => SetModal(false)}
-        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -121,7 +115,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F9F9F9',
   },
-  //
   headerNav: {
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -177,7 +170,7 @@ const styles = StyleSheet.create({
   jobTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#000',
+    color: '#0D3B4C',
   },
   postedRow: {
     flexDirection: 'row',

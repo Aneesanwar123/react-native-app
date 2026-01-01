@@ -2,12 +2,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useRouter } from 'expo-router';
 import {
-    FlatList,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  FlatList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   orderNumber: {
-    fontSize: 22,
-    fontWeight: "500",
+    fontSize: 18,
+    fontWeight: "700",
     color: '#0D3B4C',
   },
   pendingBadge: {

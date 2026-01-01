@@ -157,8 +157,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   title: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "700",
+    color: '#0D3B4C',
   },
   project: {
     fontSize: 12,

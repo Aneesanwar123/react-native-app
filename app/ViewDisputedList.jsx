@@ -1,21 +1,21 @@
 import {
-    AntDesign,
-    Ionicons,
-    MaterialCommunityIcons
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons
 } from '@expo/vector-icons';
 import { Stack, useRouter } from 'expo-router';
 import {
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ViewDisputedList = () => {
-  const router = useRouter(); // Initialize router for navigation
+  const router = useRouter(); 
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,7 +26,7 @@ const ViewDisputedList = () => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.back()} // Navigate back
+          onPress={() => router.back()} 
         >
           <Ionicons name="chevron-back" size={24} color="white" />
         </TouchableOpacity>

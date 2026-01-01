@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// 1. Mock Data for the list
+// Data for the list
 const JOBS_DATA = [
   { id: '1', title: 'Ui/Ux designing', location: 'Islamabad', type: 'Full-time', initials: 'AU' },
   { id: '2', title: 'React Native Dev', location: 'Remote', type: 'Contract', initials: 'RN' },
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
   },
   jobTitle: {
     fontSize: 18,
-    fontWeight: '700',
-    color: '#000',
+    fontWeight: "700",
+    color: '#0D3B4C',
   },
   postedContainer: {
     flexDirection: 'row',

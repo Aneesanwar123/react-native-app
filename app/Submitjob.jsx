@@ -2,15 +2,15 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ApplyJobModal from '../components/Models/ApplyJobModal'; // make sure folder name is correct
+import ApplyJobModal from '../components/Models/ApplyJobModal';
 
 const SubmitJob = () => {
     const router = useRouter();
