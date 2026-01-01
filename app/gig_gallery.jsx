@@ -86,15 +86,15 @@ export default function GalleryScreen() {
               {/* Image Boxes */}
               <View style={styles.imageRow}>
                 <View style={styles.imageBox}>
-                  <Text>📷</Text>
+                  <Ionicons name="camera" size={24} color="#9AA0A6" />
                   <Text>Drop a photo</Text>
                 </View>
                 <View style={styles.imageBox}>
-                  <Text>📷</Text>
+                  <Ionicons name="camera" size={24} color="#9AA0A6" />
                   <Text>Drop a photo</Text>
                 </View>
                 <View style={styles.imageBox}>
-                  <Text>📷</Text>
+                  <Ionicons name="camera" size={24} color="#9AA0A6" />
                   <Text>Drop a photo</Text>
                 </View>
               </View>
