@@ -117,9 +117,6 @@ const gigs = () => {
           showsVerticalScrollIndicator={false}
         />
 
-        <Pressable onPress={() => router.replace("/")} style={{ marginTop: 20 }}>
-          <Text style={{ color: "blue", fontWeight: "bold" }}>Go Back Home</Text>
-        </Pressable>
       </SafeAreaView>
     </>
   );
