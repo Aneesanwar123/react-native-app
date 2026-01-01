@@ -1,6 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -21,67 +24,76 @@ export default function DescriptionScreen() {
   ];
 
   return (
-    <>
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar style="dark" backgroundColor="#ffffff" />
       <Stack.Screen options={{ headerShown: false }} />
 
-      <View style={styles.container}>
-        {/* Back Button */}
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => router.back()}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
+      >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 30 }}
+          keyboardShouldPersistTaps="handled"
         >
-          <Ionicons name="chevron-back" size={24} color="#fff" />
-        </TouchableOpacity>
+          <View style={styles.container}>
+            {/* Back Button */}
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => router.back()}
+            >
+              <Ionicons name="chevron-back" size={24} color="#fff" />
+            </TouchableOpacity>
 
-        {/* Steps */}
-        <View style={styles.stepsRow}>
-          {steps.map((step, index) => {
-            const isActive = index === 2; // Description is active
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.stepItem}
-                onPress={() => router.push(step.screen)}
-              >
-                <View
-                  style={[styles.stepCircle, isActive && styles.activeCircle]}
-                >
-                  <Text style={[styles.stepText, isActive && styles.activeText]}>
-                    {index + 1}
-                  </Text>
-                </View>
-                <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
-                  {step.label}
-                </Text>
+            {/* Steps */}
+            <View style={styles.stepsRow}>
+              {steps.map((step, index) => {
+                const isActive = index === 2; // Description is active
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.stepItem}
+                    onPress={() => router.push(step.screen)}
+                  >
+                    <View
+                      style={[styles.stepCircle, isActive && styles.activeCircle]}
+                    >
+                      <Text style={[styles.stepText, isActive && styles.activeText]}>
+                        {index + 1}
+                      </Text>
+                    </View>
+                    <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
+                      {step.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+
+            {/* Card */}
+            <View style={styles.card}>
+              {/* Card Header */}
+              <View style={styles.cardHeader}>
+                <Text style={styles.cardHeaderText}>③ Description</Text>
+              </View>
+
+              {/* Card Body */}
+              <TextInput
+                placeholder="Briefly Describe Your Gig"
+                multiline
+                style={[styles.input, styles.textArea]}
+                placeholderTextColor="#9F9F9F"
+              />
+
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
-            );
-          })}
-        </View>
-
-        {/* Card */}
-        <View style={styles.card}>
-          {/* Card Header */}
-          <View style={styles.cardHeader}>
-            <Text style={styles.cardHeaderText}>③ Description</Text>
+            </View>
           </View>
-
-          {/* Card Body */}
-          <TextInput
-            placeholder="Briefly Describe Your Gig"
-            multiline
-            style={[styles.input, styles.textArea]}
-            placeholderTextColor="#9F9F9F"
-          />
-
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
-    </>
   );
 }
 
@@ -147,7 +159,7 @@ const styles = StyleSheet.create({
 
   /* Card */
   card: {
-    marginTop:20,
+    marginTop: 20,
     backgroundColor: "#fff",
     borderRadius: 12,
     overflow: "hidden",
@@ -189,7 +201,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     width: 120,
     marginHorizontal: 16,
-    opacity:0.6
+    opacity: 0.6,
   },
   buttonText: {
     color: "#fff",

@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const List = () => { 
+const gigs = () => { 
   const router = useRouter();
   const [search, setSearch] = useState("");
 
@@ -125,7 +125,7 @@ const List = () => {
   );
 };
 
-export default List;
+export default gigs;
 
 const styles = StyleSheet.create({
   safeContainer: { flex: 1, backgroundColor: "#efefefff", padding: 15 },

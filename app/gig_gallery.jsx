@@ -1,6 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -20,81 +23,90 @@ export default function GalleryScreen() {
   ];
 
   return (
-    <>
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar style="dark" backgroundColor="#ffffff" />
       <Stack.Screen options={{ headerShown: false }} />
 
-      <View style={styles.container}>
-        {/* Back Button */}
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => router.back()}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
+      >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 30 }}
+          keyboardShouldPersistTaps="handled"
         >
-          <Ionicons name="chevron-back" size={24} color="#fff" />
-        </TouchableOpacity>
+          <View style={styles.container}>
+            {/* Back Button */}
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => router.back()}
+            >
+              <Ionicons name="chevron-back" size={24} color="#fff" />
+            </TouchableOpacity>
 
-        {/* Steps */}
-        <View style={styles.stepsRow}>
-          {steps.map((step, index) => {
-            const isActive = index === 3; // Gallery active
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.stepItem}
-                onPress={() => router.push(step.screen)}
-              >
-                <View
-                  style={[styles.stepCircle, isActive && styles.activeCircle]}
-                >
-                  <Text style={[styles.stepText, isActive && styles.activeText]}>
-                    {index + 1}
-                  </Text>
+            {/* Steps */}
+            <View style={styles.stepsRow}>
+              {steps.map((step, index) => {
+                const isActive = index === 3; // Gallery active
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.stepItem}
+                    onPress={() => router.push(step.screen)}
+                  >
+                    <View
+                      style={[styles.stepCircle, isActive && styles.activeCircle]}
+                    >
+                      <Text style={[styles.stepText, isActive && styles.activeText]}>
+                        {index + 1}
+                      </Text>
+                    </View>
+                    <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
+                      {step.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+
+            {/* Card */}
+            <View style={styles.card}>
+              {/* Card Header */}
+              <View style={styles.cardHeader}>
+                <Text style={styles.cardHeaderText}>④ Gallery</Text>
+              </View>
+
+              {/* Card Body */}
+              <Text style={styles.title}>Showcase Your Services In A Gig Gallery</Text>
+              <Text style={styles.subtitle}>
+                Encourage buyers to choose your gig by featuring a variety of your work.
+              </Text>
+
+              {/* Image Boxes */}
+              <View style={styles.imageRow}>
+                <View style={styles.imageBox}>
+                  <Text>📷</Text>
+                  <Text>Drop a photo</Text>
                 </View>
-                <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
-                  {step.label}
-                </Text>
+                <View style={styles.imageBox}>
+                  <Text>📷</Text>
+                  <Text>Drop a photo</Text>
+                </View>
+                <View style={styles.imageBox}>
+                  <Text>📷</Text>
+                  <Text>Drop a photo</Text>
+                </View>
+              </View>
+
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Save & Continue</Text>
               </TouchableOpacity>
-            );
-          })}
-        </View>
-
-        {/* Card */}
-        <View style={styles.card}>
-          {/* Card Header */}
-          <View style={styles.cardHeader}>
-            <Text style={styles.cardHeaderText}>④ Gallery</Text>
-          </View>
-
-          {/* Card Body */}
-          <Text style={styles.title}>Showcase Your Services In A Gig Gallery</Text>
-          <Text style={styles.subtitle}>
-            Encourage buyers to choose your gig by featuring a variety of your work.
-          </Text>
-
-          {/* Image Boxes */}
-          <View style={styles.imageRow}>
-            <View style={styles.imageBox}>
-              <Text>📷</Text>
-              <Text>Drop a photo</Text>
-            </View>
-            <View style={styles.imageBox}>
-              <Text>📷</Text>
-              <Text>Drop a photo</Text>
-            </View>
-            <View style={styles.imageBox}>
-              <Text>📷</Text>
-              <Text>Drop a photo</Text>
             </View>
           </View>
-
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Save & Continue</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
-    </>
   );
 }
 
@@ -214,7 +226,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     alignSelf: "flex-end",
     width: 160,
-    opacity:0.6
+    opacity: 0.6,
   },
   buttonText: {
     color: "#fff",

@@ -2,19 +2,22 @@ import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    StatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PricingScreen() {
   const router = useRouter();
 
-  // Checkbox state (optional, just for UI toggle)
+  // Checkbox state
   const [colorPalette, setColorPalette] = useState(true);
   const [logoUsage, setLogoUsage] = useState(false);
 
@@ -27,111 +30,116 @@ export default function PricingScreen() {
   ];
 
   return (
-    <>
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar style="dark" backgroundColor="#ffffff" />
       <Stack.Screen options={{ headerShown: false }} />
-      <View style={styles.container}>
-        {/* Back Button */}
-        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
-          <Ionicons name="chevron-back" size={24} color="#fff" />
-        </TouchableOpacity>
 
-        {/* Steps */}
-        <View style={styles.stepsRow}>
-          {steps.map((step, index) => {
-            const isActive = index === 1; // Highlight current step (Pricing)
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.stepItem}
-                onPress={() => router.push(step.screen)}
-              >
-                <View style={[styles.stepCircle, isActive && styles.activeCircle]}>
-                  <Text style={[styles.stepText, isActive && styles.activeText]}>
-                    {index + 1}
-                  </Text>
-                </View>
-                <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
-                  {step.label}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-
-        {/* Card */}
-        <View style={styles.card}>
-          {/* Card Header */}
-          <View style={styles.cardHeader}>
-            <Text style={styles.cardHeaderText}>② Scope & Pricing</Text>
-          </View>
-
-          {/* Card Body */}
-          <Text style={styles.title}>Basic</Text>
-
-          <TextInput
-            placeholder="Name your package"
-            style={styles.input}
-            placeholderTextColor="#9F9F9F"
-          />
-
-          <TextInput
-            placeholder="Describe your offering"
-            multiline
-            placeholderTextColor="#9F9F9F"
-            style={[styles.input, styles.textArea]}
-          />
-
-          <TextInput
-            placeholder="Delivery Time"
-            style={styles.input}
-            placeholderTextColor="#9F9F9F"
-          />
-          <TextInput
-            placeholder="Revisions"
-            style={styles.input}
-            placeholderTextColor="#9F9F9F"
-          />
-          <TextInput
-            placeholder="Concept"
-            style={styles.input}
-            placeholderTextColor="#9F9F9F"
-          />
-          <TextInput
-            placeholder="Price"
-            style={styles.input}
-            placeholderTextColor="#9F9F9F"
-          />
-
-          {/* Checkbox Row */}
-          <View style={styles.checkboxRow}>
-            <TouchableOpacity
-              style={[styles.checkbox, colorPalette && styles.checkedBox]}
-              onPress={() => {
-                setColorPalette(!colorPalette);
-                router.push("/overview"); // Navigate to Overview
-              }}
-            >
-              {colorPalette && <Text style={styles.checkboxTick}>✓</Text>}
+      {/* Keyboard handling */}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
+      >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 30 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.container}>
+            {/* Back Button */}
+            <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
+              <Ionicons name="chevron-back" size={24} color="#fff" />
             </TouchableOpacity>
-            <Text style={styles.checkboxLabel}>Color Palette</Text>
 
-            <TouchableOpacity
-              style={[styles.checkbox, logoUsage && styles.checkedBox]}
-              onPress={() => {
-                setLogoUsage(!logoUsage);
-                router.push("/gallery"); // Navigate to Gallery
-              }}
-            >
-              {logoUsage && <Text style={styles.checkboxTick}>✓</Text>}
-            </TouchableOpacity>
-            <Text style={styles.checkboxLabel}>Logo Usage Rules</Text>
+            {/* Steps */}
+            <View style={styles.stepsRow}>
+              {steps.map((step, index) => {
+                const isActive = index === 1; // Highlight current step (Pricing)
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.stepItem}
+                    onPress={() => router.push(step.screen)}
+                  >
+                    <View style={[styles.stepCircle, isActive && styles.activeCircle]}>
+                      <Text style={[styles.stepText, isActive && styles.activeText]}>
+                        {index + 1}
+                      </Text>
+                    </View>
+                    <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
+                      {step.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+
+            {/* Card */}
+            <View style={styles.card}>
+              {/* Card Header */}
+              <View style={styles.cardHeader}>
+                <Text style={styles.cardHeaderText}>② Scope & Pricing</Text>
+              </View>
+
+              {/* Card Body */}
+              <Text style={styles.title}>Basic</Text>
+
+              <TextInput
+                placeholder="Name your package"
+                style={styles.input}
+                placeholderTextColor="#9F9F9F"
+              />
+
+              <TextInput
+                placeholder="Describe your offering"
+                multiline
+                placeholderTextColor="#9F9F9F"
+                style={[styles.input, styles.textArea]}
+              />
+
+              <TextInput
+                placeholder="Delivery Time"
+                style={styles.input}
+                placeholderTextColor="#9F9F9F"
+              />
+              <TextInput
+                placeholder="Revisions"
+                style={styles.input}
+                placeholderTextColor="#9F9F9F"
+              />
+              <TextInput
+                placeholder="Concept"
+                style={styles.input}
+                placeholderTextColor="#9F9F9F"
+              />
+              <TextInput
+                placeholder="Price"
+                style={styles.input}
+                placeholderTextColor="#9F9F9F"
+              />
+
+              {/* Checkbox Row */}
+              <View style={styles.checkboxRow}>
+                <TouchableOpacity
+                  style={[styles.checkbox, colorPalette && styles.checkedBox]}
+                  onPress={() => setColorPalette(!colorPalette)}
+                >
+                  {colorPalette && <Text style={styles.checkboxTick}>✓</Text>}
+                </TouchableOpacity>
+                <Text style={styles.checkboxLabel}>Color Palette</Text>
+
+                <TouchableOpacity
+                  style={[styles.checkbox, logoUsage && styles.checkedBox]}
+                  onPress={() => setLogoUsage(!logoUsage)}
+                >
+                  {logoUsage && <Text style={styles.checkboxTick}>✓</Text>}
+                </TouchableOpacity>
+                <Text style={styles.checkboxLabel}>Logo Usage Rules</Text>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
-    </>
   );
 }
 
@@ -142,7 +150,6 @@ const styles = StyleSheet.create({
     padding: 16,
   },
 
-  /* Back Button */
   backBtn: {
     width: 40,
     height: 40,
@@ -202,6 +209,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 3,
     marginTop: 20,
+    paddingBottom: 20,
   },
   cardHeader: {
     backgroundColor: "#043A53",

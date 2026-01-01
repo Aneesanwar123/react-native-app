@@ -2,6 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -12,7 +14,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function AddGigScreen() {
+export default function gig_overview() {
   const router = useRouter();
 
   const steps = [
@@ -30,103 +32,107 @@ export default function AddGigScreen() {
       <StatusBar style="dark" backgroundColor="#ffffff" />
       <Stack.Screen options={{ headerShown: false }} />
 
-      <View style={styles.container}>
-        {/* Back Button */}
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => router.back()}
+      {/* Keyboard Avoiding */}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
+      >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 30 }}
+          keyboardShouldPersistTaps="handled"
         >
-          <Ionicons name="chevron-back" size={24} color="#fff" />
-        </TouchableOpacity>
-
-        {/* Step Circles */}
-        <View style={styles.stepsRow}>
-          {steps.map((step, index) => {
-            const isActive = index === 0; // Overview active
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.stepItem}
-                onPress={() => router.push(step.screen)}
-              >
-                <View
-                  style={[styles.stepCircle, isActive && styles.activeCircle]}
-                >
-                  <Text
-                    style={[styles.stepText, isActive && styles.activeText]}
-                  >
-                    {index + 1}
-                  </Text>
-                </View>
-                <Text
-                  style={[styles.stepLabel, isActive && styles.activeLabel]}
-                >
-                  {step.label}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-
-        {/* Card */}
-        <ScrollView>
-          <View style={styles.card}>
-            {/* Card Header */}
-            <View style={styles.cardHeader}>
-              <Text style={styles.cardHeaderText}>① Overview</Text>
-            </View>
-
-            {/* Card Body */}
-            <View style={styles.inputContainer}>
-              {/* Gig Title */}
-              <Text style={styles.inputLabel}>Gig Title</Text>
-              <TextInput
-                placeholder="I will do something I'm really good at"
-                style={styles.input}
-                placeholderTextColor="#9F9F9F"
-                value={gigTitle}
-                onChangeText={setGigTitle}
-                multiline
-              />
-
-              {/* Category Section */}
-              <Text style={[styles.inputLabel, { marginTop: 20 }]}>
-                Category
-              </Text>
-              <View style={styles.rowInputs}>
-                <TextInput
-                  placeholder="Category Name"
-                  style={[styles.input, styles.halfInput]}
-                  placeholderTextColor="#9F9F9F"
-                  value={category}
-                  onChangeText={setCategory}
-                />
-                <TextInput
-                  placeholder="Category Name"
-                  style={[styles.input, styles.halfInput]}
-                  placeholderTextColor="#9F9F9F"
-                  value={category}
-                  onChangeText={setCategory}
-                />
-              </View>
-            </View>
-
-            {/* Submit Button */}
+          <View style={styles.container}>
+            {/* Back Button */}
             <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                if (!gigTitle || !category) {
-                  alert("Please fill all fields before proceeding.");
-                  return;
-                }
-                router.push("/gig_price"); // Navigate to Pricing screen
-              }}
+              style={styles.backBtn}
+              onPress={() => router.back()}
             >
-              <Text style={styles.buttonText}>Submit</Text>
+              <Ionicons name="chevron-back" size={24} color="#fff" />
             </TouchableOpacity>
+
+            {/* Step Circles */}
+            <View style={styles.stepsRow}>
+              {steps.map((step, index) => {
+                const isActive = index === 0; // Overview active
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.stepItem}
+                    onPress={() => router.push(step.screen)}
+                  >
+                    <View
+                      style={[styles.stepCircle, isActive && styles.activeCircle]}
+                    >
+                      <Text style={[styles.stepText, isActive && styles.activeText]}>
+                        {index + 1}
+                      </Text>
+                    </View>
+                    <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
+                      {step.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+
+            {/* Card */}
+            <View style={styles.card}>
+              {/* Card Header */}
+              <View style={styles.cardHeader}>
+                <Text style={styles.cardHeaderText}>① Overview</Text>
+              </View>
+
+              {/* Card Body */}
+              <View style={styles.inputContainer}>
+                {/* Gig Title */}
+                <Text style={styles.inputLabel}>Gig Title</Text>
+                <TextInput
+                  placeholder="I will do something I'm really good at"
+                  style={styles.input}
+                  placeholderTextColor="#9F9F9F"
+                  value={gigTitle}
+                  onChangeText={setGigTitle}
+                  multiline
+                />
+
+                {/* Category Section */}
+                <Text style={[styles.inputLabel, { marginTop: 20 }]}>Category</Text>
+                <View style={styles.rowInputs}>
+                  <TextInput
+                    placeholder="Category Name"
+                    style={[styles.input, styles.halfInput]}
+                    placeholderTextColor="#9F9F9F"
+                    value={category}
+                    onChangeText={setCategory}
+                  />
+                  <TextInput
+                    placeholder="Category Name"
+                    style={[styles.input, styles.halfInput]}
+                    placeholderTextColor="#9F9F9F"
+                    value={category}
+                    onChangeText={setCategory}
+                  />
+                </View>
+              </View>
+
+              {/* Submit Button */}
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  if (!gigTitle || !category) {
+                    alert("Please fill all fields before proceeding.");
+                    return;
+                  }
+                  router.push("/gig_price"); // Navigate to Pricing screen
+                }}
+              >
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -249,13 +255,10 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     width: 120,
     marginHorizontal: 16,
-    opacity:0.6,
+    opacity: 0.6,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "600",
   },
 });
-
-
-

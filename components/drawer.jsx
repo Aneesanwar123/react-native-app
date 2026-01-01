@@ -67,6 +67,19 @@ export default function CustomDrawer({ navigate, closeDrawer }) {
           <MaterialIcons name="keyboard-arrow-right" size={22} color="#444" />
         </TouchableOpacity>
 
+        <TouchableOpacity
+  style={styles.menuItem}
+  onPress={() => {
+    navigate("/gigs");  // Navigate to AddGigScreen
+    closeDrawer();
+  }}
+>
+  <Feather name="alert-triangle" size={20} color="#444" />
+  <Text style={styles.menuText}>Posted A Gig</Text>
+  <MaterialIcons name="keyboard-arrow-right" size={22} color="#444" />
+</TouchableOpacity>
+
+
       </View>
     </View>
   );
