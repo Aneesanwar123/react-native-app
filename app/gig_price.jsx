@@ -146,7 +146,7 @@ export default function PricingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F8F9FB",
+    backgroundColor: "#fff",
     padding: 16,
   },
 
@@ -204,12 +204,16 @@ const styles = StyleSheet.create({
 
   /* Card */
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#F8F9FB",
     borderRadius: 12,
     overflow: "hidden",
-    elevation: 3,
-    marginTop: 20,
+    elevation: 5, // Android shadow
+    shadowColor: "#000",  // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
     paddingBottom: 20,
+    marginTop: 20,
   },
   cardHeader: {
     backgroundColor: "#043A53",

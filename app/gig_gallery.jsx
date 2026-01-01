@@ -113,7 +113,7 @@ export default function GalleryScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F8F9FB",
+    backgroundColor: "#fff",
     padding: 16,
   },
 
@@ -172,14 +172,16 @@ const styles = StyleSheet.create({
 
   /* Card */
   card: {
-    marginTop: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#F8F9FB",
     borderRadius: 12,
     overflow: "hidden",
-    elevation: 3,
+    elevation: 5, // Android shadow
+    shadowColor: "#000",  // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
     paddingBottom: 20,
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    marginTop: 20,
   },
   cardHeader: {
     backgroundColor: "#043A53",
@@ -197,19 +199,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     marginBottom: 8,
+    paddingLeft: 10,
   },
   subtitle: {
     fontSize: 14,
     color: "#6c757d",
     marginBottom: 16,
+    paddingLeft: 10,
   },
   imageRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent:"space-around",
     marginBottom: 20,
   },
   imageBox: {
-    width: "30%",
+    width: "27%",
     height: 100,
     backgroundColor: "#F8F9FB",
     borderRadius: 8,
@@ -217,10 +221,12 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
     alignItems: "center",
     justifyContent: "center",
+
   },
   button: {
     backgroundColor: "#043A53",
     padding: 14,
+    marginRight: 10,
     borderRadius: 8,
     alignItems: "center",
     marginBottom: 16,
