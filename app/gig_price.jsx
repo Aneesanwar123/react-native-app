@@ -17,124 +17,59 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function PricingScreen() {
   const router = useRouter();
 
-  // Checkbox state
-  const [colorPalette, setColorPalette] = useState(true);
-  const [logoUsage, setLogoUsage] = useState(false);
-
-  // Step navigation mapping
-  const steps = [
-    { label: "Overview", screen: "/gig_overview" },
-    { label: "Pricing", screen: "/gig_price" },
-    { label: "Description", screen: "/gig_decs" },
-    { label: "Gallery", screen: "/gig_gallery" },
-  ];
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <StatusBar style="dark" backgroundColor="#ffffff" />
       <Stack.Screen options={{ headerShown: false }} />
 
-      {/* Keyboard handling */}
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : null}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
-      >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 30 }}
-          keyboardShouldPersistTaps="handled"
-        >
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
           <View style={styles.container}>
-            {/* Back Button */}
+
+            {/* Back */}
             <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
               <Ionicons name="chevron-back" size={24} color="#fff" />
             </TouchableOpacity>
 
             {/* Steps */}
             <View style={styles.stepsRow}>
-              {steps.map((step, index) => {
-                const isActive = index === 1; // Highlight current step (Pricing)
+              {["Overview", "Pricing", "Description", "Gallery"].map((label, i) => {
+                const active = i === 1;
                 return (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.stepItem}
-                    onPress={() => router.push(step.screen)}
-                  >
-                    <View style={[styles.stepCircle, isActive && styles.activeCircle]}>
-                      <Text style={[styles.stepText, isActive && styles.activeText]}>
-                        {index + 1}
+                  <View key={i} style={styles.stepItem}>
+                    <View style={[styles.stepCircle, active && styles.activeCircle]}>
+                      <Text style={[styles.stepText, active && styles.activeText]}>
+                        {i + 1}
                       </Text>
                     </View>
-                    <Text style={[styles.stepLabel, isActive && styles.activeLabel]}>
-                      {step.label}
+                    <Text style={[styles.stepLabel, active && styles.activeLabel]}>
+                      {label}
                     </Text>
-                  </TouchableOpacity>
+                  </View>
                 );
               })}
             </View>
 
-            {/* Card */}
-            <View style={styles.card}>
-              {/* Card Header */}
-              <View style={styles.cardHeader}>
-                <Text style={styles.cardHeaderText}>② Scope & Pricing</Text>
-              </View>
+            {/* BASIC */}
+            <PackageCard title="Basic" />
 
-              {/* Card Body */}
-              <Text style={styles.title}>Basic</Text>
+            {/* STANDARD */}
+            <PackageCard title="Standard" />
 
-              <TextInput
-                placeholder="Name your package"
-                style={styles.input}
-                placeholderTextColor="#9F9F9F"
-              />
+            {/* PREMIUM */}
+            <PackageCard title="Premium" />
 
-              <TextInput
-                placeholder="Describe your offering"
-                multiline
-                placeholderTextColor="#9F9F9F"
-                style={[styles.input, styles.textArea]}
-              />
+            {/* Bottom Buttons */}
+            <View style={styles.footerButtons}>
+              <TouchableOpacity style={styles.backButton}>
+                <Text style={styles.backText}>Back</Text>
+              </TouchableOpacity>
 
-              <TextInput
-                placeholder="Delivery Time"
-                style={styles.input}
-                placeholderTextColor="#9F9F9F"
-              />
-              <TextInput
-                placeholder="Revisions"
-                style={styles.input}
-                placeholderTextColor="#9F9F9F"
-              />
-              <TextInput
-                placeholder="Concept"
-                style={styles.input}
-                placeholderTextColor="#9F9F9F"
-              />
-              <TextInput
-                placeholder="Price"
-                style={styles.input}
-                placeholderTextColor="#9F9F9F"
-              />
-
-              {/* Checkbox Row */}
-              <View style={styles.checkboxRow}>
-                <TouchableOpacity
-                  style={[styles.checkbox, colorPalette && styles.checkedBox]}
-                  onPress={() => setColorPalette(!colorPalette)}
-                >
-                  {colorPalette && <Text style={styles.checkboxTick}>✓</Text>}
-                </TouchableOpacity>
-                <Text style={styles.checkboxLabel}>Color Palette</Text>
-
-                <TouchableOpacity
-                  style={[styles.checkbox, logoUsage && styles.checkedBox]}
-                  onPress={() => setLogoUsage(!logoUsage)}
-                >
-                  {logoUsage && <Text style={styles.checkboxTick}>✓</Text>}
-                </TouchableOpacity>
-                <Text style={styles.checkboxLabel}>Logo Usage Rules</Text>
-              </View>
+              <TouchableOpacity style={styles.continueButton}>
+                <Text style={styles.continueText}>Continue</Text>
+              </TouchableOpacity>
             </View>
+
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -142,35 +77,77 @@ export default function PricingScreen() {
   );
 }
 
+
+/* PACKAGE CARD */
+function PackageCard({ title }) {
+  const [colorPalette, setColorPalette] = useState(true);
+  const [logoUsage, setLogoUsage] = useState(false);
+  const [typography, setTypography] = useState(false);
+
+  return (
+    <View style={styles.card}>
+      <View style={styles.cardHeader}>
+        <Text style={styles.cardHeaderText}>② Scope & Pricing</Text>
+      </View>
+
+      <Text style={styles.title}>{title}</Text>
+
+      <TextInput placeholder="Name your package" style={styles.input} placeholderTextColor={"#00000033"} />
+      <TextInput
+        placeholder="Describe your offering"
+        multiline
+        style={[styles.input, styles.textArea]}
+        placeholderTextColor={"#00000033"}
+      />
+      <TextInput placeholder="Delivery Time" style={styles.input} placeholderTextColor={"#00000033"} />
+      <TextInput placeholder="Revisions" style={styles.input} placeholderTextColor={"#00000033"} />
+      <TextInput placeholder="Concept" style={styles.input} placeholderTextColor={"#00000033"} />
+      <TextInput placeholder="Price" style={styles.input} placeholderTextColor={"#00000033"} />
+
+      {/* Checkboxes */}
+      <View style={styles.checkboxRow}>
+        <CheckBox label="Color Palette" value={colorPalette} setValue={setColorPalette} />
+        <CheckBox label="Logo Usage Rules" value={logoUsage} setValue={setLogoUsage} />
+        <CheckBox label="Typography Guide" value={typography} setValue={setTypography} />
+      </View>
+    </View>
+  );
+}
+
+/* CHECKBOX */
+function CheckBox({ label, value, setValue }) {
+  return (
+    <TouchableOpacity style={styles.checkItem} onPress={() => setValue(!value)}>
+      <View style={[styles.checkbox, value && styles.checkedBox]}>
+        {value && <Text style={styles.tick}>✓</Text>}
+      </View>
+      <Text style={styles.checkboxLabel}>{label}</Text>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    padding: 16,
-  },
+  container: { padding: 16 },
 
   backBtn: {
     width: 40,
     height: 40,
-    borderRadius: 10,
-    margin: 10,
     backgroundColor: "#17747A",
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 12,
-    elevation: 2,
   },
 
-  /* Steps */
+  TextInput:{
+    placeholderTextColor: "#000",
+  },
   stepsRow: {
-    marginTop: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 16,
+    justifyContent:"space-evenly",
+    gap: 50,
+    marginVertical: 20,
   },
-  stepItem: {
-    alignItems: "center",
-  },
+  stepItem: { alignItems: "center" },
   stepCircle: {
     width: 26,
     height: 26,
@@ -180,39 +157,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  activeCircle: {
-    backgroundColor: "#688998",
-  },
-  stepText: {
-    fontSize: 12,
-    color: "#9AA0A6",
-  },
-  activeText: {
-    color: "#fff",
-    fontWeight: "700",
-  },
-  stepLabel: {
-    fontSize: 12,
-    color: "#9AA0A6",
-    marginTop: 4,
-  },
-  activeLabel: {
-    color: "#043A53",
-    fontWeight: "700",
-  },
+  activeCircle: { backgroundColor: "#688998" },
+  stepText: { fontSize: 12, color: "#9AA0A6" },
+  activeText: { color: "#fff", fontWeight: "700" },
+  stepLabel: { fontSize: 12, marginTop: 4, color: "#9AA0A6" },
+  activeLabel: { color: "#043A53", fontWeight: "700" },
 
-  /* Card */
   card: {
     backgroundColor: "#F8F9FB",
     borderRadius: 12,
+    marginBottom: 24,
     overflow: "hidden",
-    elevation: 5, // Android shadow
-    shadowColor: "#000",  // iOS shadow
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    paddingBottom: 20,
-    marginTop: 20,
   },
   cardHeader: {
     backgroundColor: "#043A53",
@@ -223,61 +178,71 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
-
   title: {
     fontSize: 22,
     fontWeight: "700",
-    marginVertical: 16,
     textAlign: "center",
+    marginVertical: 16,
   },
-
   input: {
-    backgroundColor: "#F8F9FB",
+    backgroundColor: "#fff",
     borderRadius: 8,
     padding: 14,
     marginHorizontal: 16,
     marginBottom: 12,
     borderWidth: 1,
     borderColor: "#ddd",
-    color: "#9F9F9F",
   },
+  textArea: { height: 100 },
 
-  textArea: {
-    height: 100,
-  },
-
-  /* Checkbox */
   checkboxRow: {
+    margin: 16,
+    flexDirection : "row",
+    flexWrap : "wrap",
+    gap : 12,
+  },
+  checkItem: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
-    flexWrap: "wrap",
-    margin: 16,
+    flexWrap : "wrap",
+    marginBottom: 12,
   },
   checkbox: {
-    width: 24,
-    height: 24,
+    width: 22,
+    flexDirection : "row",
+    height: 22,
     borderWidth: 2,
     borderColor: "#9AA0A6",
     borderRadius: 4,
-    marginRight: 8,
+    marginRight: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   checkedBox: {
     backgroundColor: "#043A53",
     borderColor: "#043A53",
-    alignItems: "center",
   },
-  checkboxTick: {
-    color: "#fff",
-    fontWeight: "700",
-    alignItems: "center",
+  tick: { color: "#fff", fontWeight: "700" },
+  checkboxLabel: { fontSize: 14 },
+
+  footerButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
   },
-  checkboxLabel: {
-    marginRight: 30,
-    fontSize: 14,
-    color: "#333",
-    alignItems: "center",
+  backButton: {
+    backgroundColor: "#6B8795",
+    paddingVertical: 14,
+    paddingHorizontal: 30,
+    borderRadius: 8,
   },
+  backText: { color: "#fff", fontWeight: "600" },
+
+  continueButton: {
+    backgroundColor: "#043A53",
+    paddingVertical: 14,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+  },
+  continueText: { color: "#fff", fontWeight: "600" },
 });
