@@ -2,14 +2,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useRouter } from 'expo-router';
 import {
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 export default function ApplyPosition() {
@@ -69,7 +69,7 @@ export default function ApplyPosition() {
           >
             <Text style={styles.cancelButtonText}>Cancel</Text>
           </TouchableOpacity>
-
+          
           <TouchableOpacity
             style={styles.flexButton}
             activeOpacity={0.8}

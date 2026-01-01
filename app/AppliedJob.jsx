@@ -26,8 +26,6 @@ const AppliedJob = () => {
 >
   <Ionicons name="chevron-back" size={24} color="white" />
 </TouchableOpacity>
-
-
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
