@@ -1,52 +1,63 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Image, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ProfileScreen() {
   const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
-      
       <StatusBar
         barStyle="light-content"
         translucent
         backgroundColor="transparent"
       />
 
+      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>MY PROFILE</Text>
       </View>
 
-      <View style={styles.profileCard}>
+      {/* Fixed Profile Info */}
+      <View style={styles.fixedProfile}>
         <Image
           source={require("../../assets/girl.jpg")}
           style={styles.avatar}
         />
         <Text style={styles.name}>Ashar Usmani</Text>
         <Text style={styles.email}>asharahmed90@gmail.com</Text>
-
-        <Text style={styles.sectionTitle}>Profile Stats</Text>
-        <View style={styles.statsRow}>
-          <StatBox number="3" label="Education" />
-          <StatBox number="6" label="Certification" />
-        </View>
-        <View style={styles.statsRow}>
-          <StatBox number="8" label="Skills" />
-          <StatBox number="4" label="Language" />
-        </View>
       </View>
 
-      <View style={styles.menu}>
-        <MenuItem 
-          icon="create-outline" 
-          label="Edit Profile" 
-          onPress={() => router.push("/edit_profile")} 
-        />
-        <MenuItem icon="help-circle-outline" label="FAQ" />
-        <MenuItem icon="share-social-outline" label="Invite" />
-        <MenuItem icon="log-out-outline" label="Logout" danger />
-      </View>
+        {/* Profile Stats */}
+        <View style={styles.profileCard}>
+          <Text style={styles.sectionTitle}>Profile Stats</Text>
+          <View style={styles.statsRow}>
+            <StatBox number="3" label="Education" />
+            <StatBox number="6" label="Certification" />
+          </View>
+          <View style={styles.statsRow}>
+            <StatBox number="8" label="Skills" />
+            <StatBox number="4" label="Language" />
+          </View>
+        </View>
+
+        {/* Menu */}
+        <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.menu}>
+          <MenuItem 
+            icon="create-outline" 
+            label="Edit Profile" 
+            onPress={() => router.push("/edit_profile")} 
+          />
+          <MenuItem icon="help-circle-outline" label="FAQ" />
+          <MenuItem icon="share-social-outline" label="Invite" />
+          <MenuItem icon="log-out-outline" label="Logout" danger />
+        </View>
+        </ScrollView>
     </SafeAreaView>
   );
 }
@@ -59,7 +70,6 @@ const StatBox = ({ number, label }) => (
   </View>
 );
 
-//  Updated MenuItem to accept onPress
 const MenuItem = ({ icon, label, danger, onPress }) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress}>
     <Ionicons name={icon} size={20} color={danger ? "#075458" : "#043A53"} />
@@ -74,23 +84,20 @@ const MenuItem = ({ icon, label, danger, onPress }) => (
 );
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
+  container: { flex: 1, backgroundColor: "#fff" },
 
   header: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    height: 160,
+    height: 120,
     backgroundColor: "#1F3C58",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 1,
+    zIndex: 2,
   },
 
   headerTitle: {
@@ -100,14 +107,11 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 
-  profileCard: {
-    marginTop: 120, // push below header
-    backgroundColor: "#fff",
-    marginHorizontal: 16,
-    borderRadius: 20,
-    padding: 20,
+  fixedProfile: {
+    marginTop: 80,
     alignItems: "center",
-    elevation: 4,
+    zIndex: 2,
+    
   },
 
   avatar: {
@@ -116,8 +120,9 @@ const styles = StyleSheet.create({
     borderRadius: 45,
     borderWidth: 4,
     borderColor: "#fff",
-    marginTop: -60,
-    zIndex: 2, 
+    marginTop: -40,
+    alignItems:"center",
+    zIndex: 3,
   },
 
   name: {
@@ -134,8 +139,29 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 
+  scrollContent: {
+    paddingHorizontal: 16,
+    paddingBottom: 30,
+    paddingTop: 20,
+  },
+
+  profileCard: {
+    backgroundColor: "#fff",
+    width: "95%",
+    borderRadius: 20,
+    justifyContent: "center",
+    // alignItems: "center",
+    alignSelf: "center",
+    padding: 20,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    marginBottom: 20,
+  },
+
   sectionTitle: {
-    alignSelf: "flex-start",
     fontSize: 14,
     fontWeight: "600",
     marginBottom: 10,
@@ -169,12 +195,14 @@ const styles = StyleSheet.create({
   },
 
   menu: {
-    marginTop: 20,
-    marginHorizontal: 16,
     backgroundColor: "#fff",
     borderRadius: 16,
     paddingVertical: 8,
     elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
   },
 
   menuItem: {
