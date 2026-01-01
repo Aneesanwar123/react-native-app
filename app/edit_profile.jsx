@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // Importing your separate components
@@ -34,7 +34,7 @@ export default function EditProfileScreen() {
       <AddSkillModal visible={isSkillModalVisible} onClose={() => setIsSkillModalVisible(false)} />
 
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.push("/Home")}>
           <Ionicons name="chevron-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>EDIT PROFILE</Text>
@@ -42,7 +42,12 @@ export default function EditProfileScreen() {
 
       <Image source={require("../assets/girl.jpg")} style={styles.avatarFixed} />
 
-      <ScrollView 
+      <KeyboardAvoidingView
+       style={{ flex: 1 }}
+              behavior={Platform.OS === "ios" ? "padding" : null}
+              keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
+      >
+        <ScrollView 
         style={styles.scrollView} 
         contentContainerStyle={styles.scrollContent} 
         showsVerticalScrollIndicator={false}
@@ -147,6 +152,7 @@ export default function EditProfileScreen() {
           </View>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
