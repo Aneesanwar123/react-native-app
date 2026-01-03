@@ -92,16 +92,25 @@ export default function Home() {
 
         {/* Summary Cards */}
         <View style={styles.cardsContainer}>
-          <LinearGradient colors={["#15A9B2", "#737373"]} style={styles.bigCard}>
-            <Text style={styles.cardTitle}>Total Gig Added</Text>
-            <Text style={styles.cardValue}>55</Text>
-            <Ionicons
-              name="person-add-outline"
-              size={28}
-              color="#fff"
-              style={styles.cardIcon}
-            />
-          </LinearGradient>
+          <TouchableOpacity
+  activeOpacity={0.8}
+  onPress={() => router.push("/gig_detail")}
+>
+  <LinearGradient
+    colors={["#15A9B2", "#737373"]}
+    style={styles.bigCard}
+  >
+    <Text style={styles.cardTitle}>Total Gig Added</Text>
+    <Text style={styles.cardValue}>55</Text>
+    <Ionicons
+      name="person-add-outline"
+      size={28}
+      color="#fff"
+      style={styles.cardIcon}
+    />
+  </LinearGradient>
+</TouchableOpacity>
+
 
           <View style={styles.rowCards}>
             <LinearGradient colors={["#15A9B2", "#737373"]} style={styles.smallCard}>
